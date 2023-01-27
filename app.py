@@ -44,7 +44,7 @@ def handle_message(event):
     elif mtext == '工商時報' or mtext =='t':
         sendcommercial(event)
     elif mtext == '天氣':
-        sendUse(event)
+        weather(event)
     
         
    
@@ -86,7 +86,7 @@ def sendcommercial(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=message))
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='家裡死人'))
-def sendUse(event):
+def weather(event):
     try:
         content = ''
         url = 'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=CWB-841EC847-824A-4A8E-AAC6-606D738A546F&downloadType=WEB&format=JSON'
