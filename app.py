@@ -44,7 +44,8 @@ def handle_message(event):
     elif mtext == '工商時報' or mtext =='t':
         sendcommercial(event)
     elif mtext == '天氣':
-        test(event)
+        sendUse(event)
+    
         
    
    
@@ -82,6 +83,30 @@ def sendcommercial(event):
             content += "{}\n{}\n".format(title, href) #格式化函數
             
             message =  content
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=message))
+    except:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='家裡死人'))
+def sendUse(event):
+    try:
+        content = ''
+        url = 'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=CWB-841EC847-824A-4A8E-AAC6-606D738A546F&downloadType=WEB&format=JSON'
+        data = requests.get(url)   # 取得 JSON 檔案的內容為文字
+        data_json = data.json()    # 轉換成 JSON 格式
+        location = data_json['cwbopendata']['dataset']['location']
+        for i in location:
+            city = i['locationName']    # 縣市名稱
+            wx8 = i['weatherElement'][0]['time'][0]['parameter']['parameterName']    # 天氣現象
+            maxt8 = i['weatherElement'][1]['time'][0]['parameter']['parameterName']  # 最高溫
+            mint8 = i['weatherElement'][2]['time'][0]['parameter']['parameterName']  # 最低溫
+            ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']    # 舒適度
+            pop8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']   # 降雨機率
+            t  = f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %'
+            content += "{}\n".format(t) #格式化函數
+            message = content
+            
+            
+        
+           
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=message))
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='家裡死人'))
