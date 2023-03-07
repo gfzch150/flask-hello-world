@@ -3,4 +3,4 @@ Gunicorn
 line-bot-sdk
 requests
 beautifulsoup4 
-json
+
