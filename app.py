@@ -40,20 +40,16 @@ def handle_message(event):
     mtext = event.message.text
     if mtext == '新北市天氣'or mtext =='新北市':
         NewTaipeiCity(event)
+    elif mtext == '台北市天氣' or mtext =='台北市'or mtext =='台北':
+        TaipeiCity(event)
+       
+     
    
         
         
          
         
-        
-        
-        
-        
-        
    
-   
-   
-        
 
 
 def NewTaipeiCity(event):
@@ -75,6 +71,30 @@ def NewTaipeiCity(event):
         line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='讀取錯誤！'))
+        
+        
+        
+        
+        
+def TaipeiCity(event):
+    try:
+        response = requests.get('https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-009?Authorization=CWB-841EC847-824A-4A8E-AAC6-606D738A546F&downloadType=WEB&format=JSON')
+    
+        # 將回應的 JSON 資料轉換成 Python 字典
+        data = json.loads(response.text)
+        location = data['cwbopendata']['dataset']['parameterSet']['parameter']
+        for i in range(1,2):
+            c = location[i]['parameterValue']
+        message = [
+            TextSendMessage(text = c)
+   
+         ]
+        
+        
+       
+        line_bot_api.reply_message(event.reply_token,message)
+    except:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='讀取發生錯誤！'))
 
 
 
