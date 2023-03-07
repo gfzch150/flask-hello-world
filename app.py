@@ -16,7 +16,7 @@ line_bot_api = LineBotApi('DLMk1UwEwqi/umvpTBiZhwzfhZa8d7qsINjyPMl45eZNqapiuBmHJ
 handler = WebhookHandler('5b1538f847a42fc9542c6531401b2384')
 
 
-@app.route("/callback", methods=['POST'])
+@app.route("/", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -38,7 +38,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     mtext = event.message.text
-    if mtext == '新北市天氣':
+    if mtext == '新北市天氣'or mtext =='新北市':
         NewTaipeiCity(event)
    
         
