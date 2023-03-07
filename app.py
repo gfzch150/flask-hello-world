@@ -17,7 +17,7 @@ line_bot_api = LineBotApi('DLMk1UwEwqi/umvpTBiZhwzfhZa8d7qsINjyPMl45eZNqapiuBmHJ
 handler = WebhookHandler('5b1538f847a42fc9542c6531401b2384')
 
 
-@app.route("/callback", methods=['POST'])
+@app.route("/", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -428,5 +428,7 @@ def PingtungCounty(event):
         line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='讀取發生錯誤！'))
+
+
 if __name__ == "__main__":
     app.run()
