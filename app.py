@@ -40,7 +40,7 @@ def handle_message(event):
     mtext = event.message.text
     if mtext == '新北市天氣'or mtext =='新北市':
         NewTaipeiCity(event)
-    elif mtext == '台北市天氣' or mtext =='台北市'or mtext =='台北':
+    elif mtext == '台北市天氣' or mtext == '台北市' or mtext  == '台北':
         TaipeiCity(event)
        
      
